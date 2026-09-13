@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quản lý học sinh lớp 10A4</title>
+
+<style>
+
+:root{
+    --black:#020604;
+    --black2:#06100b;
+    --green:#19e879;
+    --green2:#08a94e;
+    --darkgreen:#0b2b1b;
+    --border:#14502f;
+    --white:#f4fff7;
+    --gray:#91a99a;
+    --red:#e83d50;
+    --yellow:#d5a91c;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(
+            circle at top right,
+            #07351f,
+            #020604 45%
+        );
+    color:var(--white);
+}
+
+
+/* ================= HEADER ================= */
+
+header{
+
+    height:78px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:8px 22px;
+
+    background:#020906;
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    box-shadow:
+        0 0 25px rgba(25,232,121,.08);
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+
+.logo{
+
+    width:58px;
+
+    height:58px;
+
+    object-fit:contain;
+
+    border-radius:50%;
+
+}
+
+
+.brand h1{
+
+    margin:0;
+
+    color:var(--green);
+
+    font-size:24px;
+
+}
+
+
+.brand p{
+
+    margin:4px 0 0;
+
+    color:var(--gray);
+
+    font-size:13px;
+
+}
+
+
+.clock{
+
+    margin-left:auto;
+
+    text-align:right;
+
+}
+
+
+.clock .date{
+
+    color:#d5e8dc;
+
+    font-size:13px;
+
+}
+
+
+.clock .time{
+
+    color:var(--green);
+
+    font-weight:bold;
+
+    font-size:16px;
+
+}
+
+
+/* ================= LAYOUT ================= */
+
+.layout{
+
+    display:grid;
+
+    grid-template-columns:220px 1fr;
+
+    min-height:calc(100vh - 78px);
+
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+    background:#020805;
+
+    border-right:1px solid var(--border);
+
+    padding:15px 10px;
+
+}
+
+
+.menu{
+
+    padding:13px;
+
+    margin:5px 0;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    color:#d7e8de;
+
+    transition:.2s;
+
+}
+
+
+.menu:hover,
+.menu.active{
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d713e,
+            #074a29
+        );
+
+    color:white;
+
+}
+
+
+.auto{
+
+    margin-top:20px;
+
+    padding:13px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    color:var(--gray);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+.auto strong{
+
+    color:var(--green);
+
+}
+
+
+/* ================= MAIN ================= */
+
+main{
+
+    padding:18px;
+
+    min-width:0;
+
+}
+
+
+/* ================= STATISTICS ================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:12px;
+
+}
+
+
+.stat{
+
+    background:
+        linear-gradient(
+            145deg,
+            #071b11,
+            #04100a
+        );
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    padding:16px;
+
+}
+
+
+.stat-title{
+
+    color:#83bd9a;
+
+    font-size:13px;
+
+}
+
+
+.stat-number{
+
+    color:var(--green);
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin-top:7px;
+
+}
+
+
+/* ================= TOOLBAR ================= */
+
+.toolbar{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:14px;
+
+}
+
+
+.search{
+
+    flex:1;
+
+    min-width:220px;
+
+}
+
+
+input,
+select,
+textarea{
+
+    background:#06140c;
+
+    color:white;
+
+    border:1px solid #155034;
+
+    border-radius:7px;
+
+    padding:9px;
+
+    outline:none;
+
+}
+
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:var(--green);
+
+}
+
+
+button{
+
+    border:none;
+
+    color:white;
+
+    padding:9px 13px;
+
+    border-radius:7px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+}
+
+
+button:hover{
+
+    filter:brightness(1.15);
+
+    transform:translateY(-1px);
+
+}
+
+
+.btn-green{
+
+    background:#079a4a;
+
+}
+
+
+.btn-red{
+
+    background:#922b3a;
+
+}
+
+
+.btn-dark{
+
+    background:#0a2116;
+
+    border:1px solid #185336;
+
+}
+
+
+.btn-yellow{
+
+    background:#826b13;
+
+}
+
+
+/* ================= TABLE ================= */
+
+.table-box{
+
+    margin-top:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    overflow:auto;
+
+    background:#020a06;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1200px;
+
+}
+
+
+th{
+
+    padding:13px 10px;
+
+    text-align:left;
+
+    background:#061a10;
+
+    color:var(--green);
+
+    border-bottom:1px solid var(--border);
+
+}
+
+
+td{
+
+    padding:8px 10px;
+
+    border-top:1px solid #0b291a;
+
+}
+
+
+tr:hover{
+
+    background:rgba(25,232,121,.035);
+
+}
+
+
+.student-name{
+
+    font-weight:bold;
+
+}
+
+
+/* ================= CHECKBOX ================= */
+
+.student-check,
+#selectAll{
+
+    width:18px;
+
+    height:18px;
+
+    accent-color:var(--green);
+
+}
+
+
+/* ================= SCORE ================= */
+
+.score-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+}
+
+
+.score-area button{
+
+    width:31px;
+
+    height:31px;
+
+    padding:0;
+
+}
+
+
+.score-minus{
+
+    background:#8c2637;
+
+}
+
+
+.score-plus{
+
+    background:#078f48;
+
+}
+
+
+.score-input{
+
+    width:68px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    color:var(--green);
+
+}
+
+
+/* ================= ATTENDANCE ================= */
+
+.attendance{
+
+    display:flex;
+
+    gap:4px;
+
+}
+
+
+.attendance button{
+
+    font-size:12px;
+
+    padding:7px 9px;
+
+    background:#0a2417;
+
+    border:1px solid #17482e;
+
+}
+
+
+.attendance .present{
+
+    background:#08a952;
+
+}
+
+
+.attendance .absent{
+
+    background:#a22b3d;
+
+}
+
+
+.attendance .late{
+
+    background:#896d10;
+
+}
+
+
+/* ================= VIOLATION ================= */
+
+.violation{
+
+    width:230px;
+
+    min-height:40px;
+
+    resize:vertical;
+
+}
+
+
+/* ================= CONDUCT ================= */
+
+.conduct{
+
+    min-width:125px;
+
+}
+
+
+/* ================= BOTTOM ================= */
+
+.bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:11px;
+
+    color:var(--gray);
+
+    font-size:13px;
+
+}
+
+
+/* ================= BACKUP ================= */
+
+.backup{
+
+    margin-top:14px;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    background:#031009;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    text-align:right;
+
+    color:var(--green);
+
+    padding:18px 0;
+
+    font-style:italic;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+
+    .stats{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+}
+
+
+@media(max-width:750px){
+
+    header{
+
+        padding:8px 12px;
+
+    }
+
+    .clock{
+
+        display:none;
+
+    }
+
+    .layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    main{
+
+        padding:10px;
+
+    }
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .stat-number{
+
+        font-size:23px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="brand">
+
+        <!--
+        Đặt ảnh logo bạn gửi tên là:
+        logo.jpg
+        -->
+
+        <img
+            src="logo.jpg"
+            class="logo"
+            alt="Logo lớp 10A4"
+        >
+
+        <div>
+
+            <h1>LỚP 10A4</h1>
+
+            <p>
+                Đoàn kết - Học tốt - Phát triển
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="clock">
+
+        <div
+            class="date"
+            id="date"
+        ></div>
+
+        <div
+            class="time"
+            id="time"
+        ></div>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="menu active">
+        🏠 &nbsp; Trang chủ
+    </div>
+
+    <div class="menu">
+        👥 &nbsp; Danh sách học sinh
+    </div>
+
+    <div class="menu">
+        ☑️ &nbsp; Điểm danh
+    </div>
+
+    <div class="menu">
+        📝 &nbsp; Quản lý điểm
+    </div>
+
+    <div class="menu">
+        ⚠️ &nbsp; Vi phạm
+    </div>
+
+    <div class="menu">
+        🏆 &nbsp; Hạnh kiểm
+    </div>
+
+    <div class="menu">
+        💾 &nbsp; Sao lưu / Khôi phục
+    </div>
+
+
+    <div class="auto">
+
+        🔄 <strong>Điểm danh tự động</strong>
+
+        <br>
+
+        Điểm danh sẽ được
+
+        <br>
+
+        làm mới sau
+
+        <strong>22:00</strong>
+
+        mỗi ngày.
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- ================= STATISTICS ================= -->
+
+<section class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Tổng số học sinh
+        </div>
+
+        <div
+            class="stat-number"
+            id="total"
+        >
+            41
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Có mặt
+        </div>
+
+        <div
+            class="stat-number"
+            id="present"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Vắng
+        </div>
+
+        <div
+            class="stat-number"
+            id="absent"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Tổng điểm lớp
+        </div>
+
+        <div
+            class="stat-number"
+            id="totalScore"
+        >
+            8.200
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Điểm ban đầu
+        </div>
+
+        <div class="stat-number">
+            200
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TOOLBAR
+===================================================== -->
+
+<section class="toolbar">
+
+
+    <input
+        id="search"
+        class="search"
+        placeholder="🔎 Tìm kiếm học sinh..."
+        oninput="render()"
+    >
+
+
+    <button
+        class="btn-green"
+        onclick="selectAll(true)"
+    >
+        ☑ Chọn tất cả
+    </button>
+
+
+    <button
+        class="btn-dark"
+        onclick="selectAll(false)"
+    >
+        □ Bỏ chọn tất cả
+    </button>
+
+
+    <button
+        class="btn-green"
+        onclick="attendanceSelected('present')"
+    >
+        ✓ Chọn có mặt
+    </button>
+
+
+    <button
+        class="btn-red"
+        onclick="attendanceSelected('absent')"
+    >
+        ✕ Chọn vắng
+    </button>
+
+
+    <button
+        class="btn-yellow"
+        onclick="attendanceSelected('late')"
+    >
+        ⏰ Chọn đi muộn
+    </button>
+
+
+    <button
+        class="btn-dark"
+        onclick="clearAttendance()"
+    >
+        ↻ Xóa điểm danh
+    </button>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TABLE
+===================================================== -->
+
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+    <th>
+        <input
+            type="checkbox"
+            id="selectAll"
+            onchange="selectAll(this.checked)"
+        >
+    </th>
+
+    <th>
+        STT
+    </th>
+
+    <th>
+        Họ và tên
+    </th>
+
+    <th>
+        Điểm
+        <br>
+        <small>(0 - 1000)</small>
+    </th>
+
+    <th>
+        Điểm danh
+    </th>
+
+    <th>
+        Vi phạm
+    </th>
+
+    <th>
+        Hạnh kiểm
+    </th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="studentTable"></tbody>
+
+
+</table>
+
+
+<div class="bottom">
+
+    <span id="selectedCount">
+        Đã chọn: 0 học sinh
+    </span>
+
+    <span>
+        41 học sinh • Tự động lưu
+    </span>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     BACKUP
+===================================================== -->
+
+<section class="backup">
+
+
+    <button
+        class="btn-green"
+        onclick="backupData()"
+    >
+        💾 Sao lưu dữ liệu
+    </button>
+
+
+    <button
+        class="btn-dark"
+        onclick="
+            document
+            .getElementById('restoreFile')
+            .click()
+        "
+    >
+        📂 Khôi phục dữ liệu
+    </button>
+
+
+    <button
+        class="btn-red"
+        onclick="resetEverything()"
+    >
+        🗑 Xóa toàn bộ dữ liệu
+    </button>
+
+
+    <input
+        type="file"
+        id="restoreFile"
+        accept=".json"
+        hidden
+        onchange="restoreData(event)"
+    >
+
+
+</section>
+
+
+<div class="footer">
+
+    Lớp 10A4 - Cùng nhau tiến bộ! 🌿
+
+</div>
+
+
+</main>
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   DANH SÁCH 41 HỌC SINH
+===================================================== */
+
+const names = [
+
+"Lê Thị Linh An",
+
+"Đặng Hữu Đức Anh",
+
+"Hoàng Quỳnh Anh",
+
+"Nguyễn Việt Anh",
+
+"Nguyễn Phương Anh",
+
+"Nguyễn Thị Ngọc Ánh",
+
+"Bùi Xuân Bách",
+
+"Nguyễn Gia Bảo",
+
+"Vũ Gia Bảo",
+
+"Lê Thái Bảo",
+
+"Lăng Thảo Chi",
+
+"Bùi Đình Doanh",
+
+"Nguyễn Thùy Dương",
+
+"Lê Xuân Đạt",
+
+"Bùi Nguyễn Đức Đô",
+
+"Hoàng Minh Đức",
+
+"Vũ Minh Đức",
+
+"Phạm Thuỳ Giang",
+
+"Nguyễn Duy Hào",
+
+"Đinh Thị Thanh Hằng",
+
+"Nguyễn Chung Hiếu",
+
+"Vũ Việt Hoàng",
+
+"Ngân Quang Huy",
+
+"Trần Thanh Huyền",
+
+"Trần Thị Lệ Hương",
+
+"Bùi Trung Kiên",
+
+"Bùi Như Khang",
+
+"Lê Thảo Linh",
+
+"Lê Trần Đức Long",
+
+"Vũ Thị Tuyết Mai",
+
+"Lê Anh Minh",
+
+"Lê Thị Nhung",
+
+"Nguyễn Thị Nhung",
+
+"Nguyễn Gia Phong",
+
+"Nguyễn Mạnh Quân",
+
+"Lã Minh Tâm",
+
+"Lăng Thanh Tùng",
+
+"Nguyễn Anh Thái",
+
+"Đinh Thị Phương Thảo",
+
+"Lê Quang Thế",
+
+"Phạm Thanh Trúc"
+
+];
+
+
+
+/* =====================================================
+   LƯU TRỮ
+===================================================== */
+
+const STORAGE_KEY =
+    "QUAN_LY_LOP_10A4";
+
+
+let students =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    );
+
+
+
+/* =====================================================
+   TẠO DỮ LIỆU BAN ĐẦU
+===================================================== */
+
+if(
+    !Array.isArray(students) ||
+    students.length !== names.length
+){
+
+    students =
+        names.map(
+            (name,index)=>({
+
+                id:index + 1,
+
+                name:name,
+
+                /*
+                Mỗi người bắt đầu 200 điểm
+                */
+
+                score:200,
+
+                attendance:"",
+
+                violation:"",
+
+                conduct:"Tốt",
+
+                selected:false
+
+            })
+        );
+
+
+    saveData();
+
+}
+
+
+
+/* =====================================================
+   LƯU DỮ LIỆU
+===================================================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(students)
+    );
+
+}
+
+
+
+/* =====================================================
+   NGÀY HIỆN TẠI
+===================================================== */
+
+function getToday(){
+
+    const d =
+        new Date();
+
+    return (
+
+        d.getFullYear()
+        + "-"
+        + String(
+            d.getMonth()+1
+        ).padStart(2,"0")
+        + "-"
+        + String(
+            d.getDate()
+        ).padStart(2,"0")
+
+    );
+
+}
+
+
+
+/* =====================================================
+   KIỂM TRA 22:00
+===================================================== */
+
+function checkAttendanceReset(){
+
+    const now =
+        new Date();
+
+    const hour =
+        now.getHours();
+
+    const today =
+        getToday();
+
+    const last =
+        localStorage.getItem(
+            "ATTENDANCE_DATE"
+        );
+
+
+    /*
+    Sau 22:00 và ngày chưa được reset
+    */
+
+    if(
+        hour >= 22 &&
+        last !== today
+    ){
+
+        students.forEach(
+            student => {
+
+                student.attendance = "";
+
+                student.selected = false;
+
+            }
+        );
+
+
+        localStorage.setItem(
+            "ATTENDANCE_DATE",
+            today
+        );
+
+
+        saveData();
+
+        render();
+
+    }
+
+
+    if(!last){
+
+        localStorage.setItem(
+            "ATTENDANCE_DATE",
+            today
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   HIỂN THỊ DANH SÁCH
+===================================================== */
+
+function render(){
+
+    const tbody =
+        document.getElementById(
+            "studentTable"
+        );
+
+
+    const keyword =
+        document.getElementById(
+            "search"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    tbody.innerHTML = "";
+
+
+    students.forEach(
+        (student,index)=>{
+
+            if(
+                keyword &&
+                !student.name
+                .toLowerCase()
+                .includes(keyword)
+            ){
+
+                return;
+
+            }
+
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+<td>
+
+<input
+    type="checkbox"
+    class="student-check"
+    ${student.selected ? "checked" : ""}
+    onchange="toggleStudent(${index})"
+>
+
+</td>
+
+
+<td>
+    ${student.id}
+</td>
+
+
+<td class="student-name">
+    ${student.name}
+</td>
+
+
+<td>
+
+<div class="score-area">
+
+<button
+    class="score-minus"
+    onclick="changeScore(${index},-1)"
+>
+    −
+</button>
+
+
+<input
+    class="score-input"
+    type="number"
+    min="0"
+    max="1000"
+    value="${student.score}"
+    onchange="setScore(${index},this.value)"
+>
+
+
+<button
+    class="score-plus"
+    onclick="changeScore(${index},1)"
+>
+    +
+</button>
+
+</div>
+
+</td>
+
+
+<td>
+
+<div class="attendance">
+
+<button
+    class="${student.attendance === "present"
+        ? "present"
+        : ""}"
+    onclick="setAttendance(${index},"present")"
+>
+    Có mặt
+</button>
+
+
+<button
+    class="${student.attendance === "absent"
+        ? "absent"
+        : ""}"
+    onclick="setAttendance(${index},"absent")"
+>
+    Vắng
+</button>
+
+
+<button
+    class="${student.attendance === "late"
+        ? "late"
+        : ""}"
+    onclick="setAttendance(${index},"late")"
+>
+    Đi muộn
+</button>
+
+</div>
+
+</td>
+
+
+<td>
+
+<textarea
+    class="violation"
+    placeholder="Ghi vi phạm..."
+    onchange="updateViolation(${index},this.value)"
+>${escapeHTML(student.violation)}</textarea>
+
+</td>
+
+
+<td>
+
+<select
+    class="conduct"
+    onchange="updateConduct(${index},this.value)"
+>
+
+<option
+    value="Tốt"
+    ${student.conduct==="Tốt"
+        ? "selected"
+        : ""}
+>
+    Tốt
+</option>
+
+
+<option
+    value="Khá"
+    ${student.conduct==="Khá"
+        ? "selected"
+        : ""}
+>
+    Khá
+</option>
+
+
+<option
+    value="Đạt"
+    ${student.conduct==="Đạt"
+        ? "selected"
+        : ""}
+>
+    Đạt
+</option>
+
+
+<option
+    value="Chưa đạt"
+    ${student.conduct==="Chưa đạt"
+        ? "selected"
+        : ""}
+>
+    Chưa đạt
+</option>
+
+</select>
+
+</td>
+
+`;
+
+
+            tbody.appendChild(tr);
+
+        }
+    );
+
+
+    updateStatistics();
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text || "")
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;");
+
+}
+
+
+
+/* =====================================================
+   CHỌN HỌC SINH
+===================================================== */
+
+function toggleStudent(index){
+
+    students[index].selected =
+        !students[index].selected;
+
+    saveData();
+
+    updateStatistics();
+
+}
+
+
+
+/* =====================================================
+   CHỌN TẤT CẢ
+===================================================== */
+
+function selectAll(value){
+
+    students.forEach(
+        student => {
+
+            student.selected =
+                value;
+
+        }
+    );
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   CỘNG / TRỪ ĐIỂM
+===================================================== */
+
+function changeScore(
+    index,
+    amount
+){
+
+    students[index].score +=
+        amount;
+
+
+    /*
+    Giới hạn 0 - 1000
+    */
+
+    if(
+        students[index].score < 0
+    ){
+
+        students[index].score = 0;
+
+    }
+
+
+    if(
+        students[index].score > 1000
+    ){
+
+        students[index].score = 1000;
+
+    }
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   NHẬP ĐIỂM TRỰC TIẾP
+===================================================== */
+
+function setScore(
+    index,
+    value
+){
+
+    let score =
+        parseInt(value);
+
+
+    if(
+        isNaN(score)
+    ){
+
+        score = 200;
+
+    }
+
+
+    score =
+        Math.max(
+            0,
+            Math.min(
+                1000,
+                score
+            )
+        );
+
+
+    students[index].score =
+        score;
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   ĐIỂM DANH
+===================================================== */
+
+function setAttendance(
+    index,
+    status
+){
+
+    students[index].attendance =
+        status;
+
+
+    localStorage.setItem(
+        "ATTENDANCE_DATE",
+        getToday()
+    );
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   ĐIỂM DANH CÁC HỌC SINH ĐÃ CHỌN
+===================================================== */
+
+function attendanceSelected(
+    status
+){
+
+    let count = 0;
+
+
+    students.forEach(
+        student => {
+
+            if(student.selected){
+
+                student.attendance =
+                    status;
+
+                count++;
+
+            }
+
+        }
+    );
+
+
+    if(count === 0){
+
+        alert(
+            "Hãy chọn ít nhất một học sinh."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "ATTENDANCE_DATE",
+        getToday()
+    );
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   XÓA ĐIỂM DANH
+===================================================== */
+
+function clearAttendance(){
+
+    if(
+        !confirm(
+            "Xóa điểm danh của tất cả học sinh?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    students.forEach(
+        student => {
+
+            student.attendance = "";
+
+        }
+    );
+
+
+    saveData();
+
+    render();
+
+}
+
+
+
+/* =====================================================
+   VI PHẠM
+===================================================== */
+
+function updateViolation(
+    index,
+    value
+){
+
+    students[index].violation =
+        value;
+
+    saveData();
+
+}
+
+
+
+/* =====================================================
+   HẠNH KIỂM
+===================================================== */
+
+function updateConduct(
+    index,
+    value
+){
+
+    students[index].conduct =
+        value;
+
+    saveData();
+
+}
+
+
+
+/* =====================================================
+   THỐNG KÊ
+===================================================== */
+
+function updateStatistics(){
+
+    const present =
+        students.filter(
+            s =>
+            s.attendance === "present"
+        ).length;
+
+
+    const absent =
+        students.filter(
+            s =>
+            s.attendance === "absent"
+        ).length;
+
+
+    const selected =
+        students.filter(
+            s =>
+            s.selected
+        ).length;
+
+
+    const totalScore =
+        students.reduce(
+            (sum,s)=>
+                sum + Number(s.score),
+            0
+        );
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        students.length;
+
+
+    document.getElementById(
+        "present"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "absent"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "totalScore"
+    ).textContent =
+        totalScore.toLocaleString(
+            "vi-VN"
+        );
+
+
+    document.getElementById(
+        "selectedCount"
+    ).textContent =
+        "Đã chọn: "
+        + selected
+        + " học sinh";
+
+}
+
+
+
+/* =====================================================
+   SAO LƯU
+===================================================== */
+
+function backupData(){
+
+    const backup = {
+
+        className:"10A4",
+
+        backupTime:
+            new Date().toISOString(),
+
+        students:students
+
+    };
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    backup,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+
+    a.download =
+        "SAO_LUU_LOP_10A4_"
+        + getToday()
+        + ".json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+
+/* =====================================================
+   KHÔI PHỤC
+===================================================== */
+
+function restoreData(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file){
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            try{
+
+                const backup =
+                    JSON.parse(
+                        e.target.result
+                    );
+
+
+                if(
+                    !backup.students ||
+                    !Array.isArray(
+                        backup.students
+                    )
+                ){
+
+                    throw new Error();
+
+                }
+
+
+                if(
+                    !confirm(
+                        "Khôi phục dữ liệu sao lưu?"
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                students =
+                    backup.students;
+
+
+                saveData();
+
+                render();
+
+
+                alert(
+                    "✓ Khôi phục dữ liệu thành công!"
+                );
+
+            }
+            catch(error){
+
+                alert(
+                    "File sao lưu không hợp lệ!"
+                );
+
+            }
+
+        };
+
+
+    reader.readAsText(file);
+
+
+    event.target.value = "";
+
+}
+
+
+
+/* =====================================================
+   XÓA TOÀN BỘ
+===================================================== */
+
+function resetEverything(){
+
+    if(
+        !confirm(
+            "Bạn có chắc muốn xóa toàn bộ dữ liệu?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+
+    localStorage.removeItem(
+        "ATTENDANCE_DATE"
+    );
+
+
+    location.reload();
+
+}
+
+
+
+/* =====================================================
+   ĐỒNG HỒ
+===================================================== */
+
+function updateClock(){
+
+    const now =
+        new Date();
+
+
+    document.getElementById(
+        "date"
+    ).textContent =
+        now.toLocaleDateString(
+            "vi-VN",
+            {
+                weekday:"long",
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+
+    document.getElementById(
+        "time"
+    ).textContent =
+        now.toLocaleTimeString(
+            "vi-VN"
+        );
+
+
+    /*
+    Kiểm tra tự động sau 22:00
+    */
+
+    checkAttendanceReset();
+
+}
+
+
+
+/* =====================================================
+   KHỞI ĐỘNG
+===================================================== */
+
+render();
+
+updateClock();
+
+
+/*
+Kiểm tra mỗi giây để đảm bảo
+sau 22:00 hệ thống tự làm mới.
+*/
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
+
+</body>
+</html>
